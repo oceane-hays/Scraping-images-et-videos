@@ -22,7 +22,8 @@ url = args[-1]
 
 response = requests.get(url)
 
-print("PATH", url)
+
+path = "PATH "
 
 doc = ''.join(response.text.split('    '))
 doc = doc.replace("\t", "")
@@ -75,6 +76,9 @@ for i in range(len(doc)) :
 
 
 def define_options(args, res):
+    global path
+    global url
+
     url = args[-1]
     i = 0
     while i < len(args):
@@ -84,20 +88,32 @@ def define_options(args, res):
                 if i + 1 < len(args) and args[i + 1] != url:
                     regex = args[i + 1]
 
+                    res = filter(lambda x: regex in x, res)
                     i += 1
                 else:
                     res = ["Erreur : -r requiert une valeur"]
 
             case "-i":
-                res = list(filter(lambda x: x[0] != "I", res))
+                res = filter(lambda x: x[0] != "I", res)
 
             case "-v":
-                res = list(filter(lambda x: x[0] != "V", res))
+                res = filter(lambda x: x[0] != "V", res)
 
             case "-p":
                 if i + 1 < len(args) and args[i + 1] != url:
-                    path = args[i + 1]
+                    path += args[i + 1]
+                    print(path)
+
+                    temp = []
+                    for line in res :
+                        ligne = line.split()
+
+                        ligne[1] = ligne[1].split("/")[-1]
+                        temp.append(" ".join(ligne))
+
+                    res = temp
                     i += 1
+
                 else:
                     res = ["Erreur : -p requiert une valeur"]
 
@@ -107,6 +123,9 @@ def define_options(args, res):
                     print(args[arg], aide_arg[args[arg]])
 
         i += 1
+
+    if path == "PATH " :
+        print(path + url)
     return "\n".join(res)
 
 
