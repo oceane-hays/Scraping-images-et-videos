@@ -23,6 +23,12 @@ url = args[-1]
 response = requests.get(url)
 
 
+while True :
+    if url[-1] == "/" :
+        break
+    url = url[:-1]
+
+
 path = "PATH "
 
 doc = ''.join(response.text.split('    '))
@@ -79,7 +85,6 @@ def define_options(args, res):
     global path
     global url
 
-    url = args[-1]
     i = 0
     while i < len(args):
         match args[i]:
@@ -124,13 +129,16 @@ def define_options(args, res):
 
         i += 1
 
+
     if path == "PATH " :
         print(path + url)
     return "\n".join(res)
+
 
 
 if len(args) > 1 :
     print(define_options(args, resultat))
 
 else :
+    print(path + url)
     print("\n".join(resultat))
