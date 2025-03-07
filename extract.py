@@ -4,11 +4,11 @@ import re
 
 
 aide_arg = {
-    "-r <regex>" : "    (@oceane-hays, @celina-wang) liste seulement les ressources dont le nom  matche l’expression régulière.",
-    "-i" : "    (@oceane-hays, @celina-wang) ne liste pas les elements <img>.",
-    "-v" : "    (@oceane-hays, @celina-wang) ne liste pas les elements <video>.",
-    "-p <path>" : "    (@oceane-hays, @celina-wang) liste et copie es ressources img et/ou video de <url> dans le path.",
-    "-h" : "    (@oceane-hays, @celina-wang) affiche le synopsis de la commande et les auteurs de la commande",
+    "-r <regex>" : "    (@oceane-hays, @CelinaZhang11) liste seulement les ressources dont le nom  matche l’expression régulière.",
+    "-i" : "    (@oceane-hays, @CelinaZhang11) ne liste pas les elements <img>.",
+    "-v" : "    (@oceane-hays, @CelinaZhang11) ne liste pas les elements <video>.",
+    "-p <path>" : "    (@oceane-hays, @CelinaZhang11) liste et copie es ressources img et/ou video de <url> dans le path.",
+    "-h" : "    (@oceane-hays, @CelinaZhang11) affiche le synopsis de la commande et les auteurs de la commande",
 }
 
 
