@@ -127,7 +127,7 @@ def generate_html(resources):
             table_rows += f"<tr><td>{resources[i]}</td><td>{ligne[2]}</td></tr>\n"
             gallery_images += f'<img src="{path + ligne[1]}" alt="{ligne[2]}">\n'
         else:
-            table_rows += f"<tr><td>{resources[i]}</td><td>{""}</td></tr>\n"
+            table_rows += f"<tr><td>{resources[i]}</td><td>{''}</td></tr>\n"
             gallery_images += f'<img src="{path + ligne[1]}">\n'
 
     html_content = HTML_TEMPLATE.format(
