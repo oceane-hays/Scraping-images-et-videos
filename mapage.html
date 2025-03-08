@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisation des Ressources</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { width: 80%; margin: auto; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 10px; text-align: left; }
+        th { background-color: #007bff; color: white; } /* Blue header */
+        
+        /* Striped table */
+        tr:nth-child(even) { background-color: #f2f2f2; } /* Alternating row colors */
+        tr:hover { background-color: #ddd; } /* Hover effect */
+
+        .container { display: none; margin-top: 20px; }
+        .gallery img { width: 100px; height: auto; margin: 5px; }
+        .carousel img { width: 50%; height: auto; }
+
+        /* Button Styling */
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Visualisateur</h1>
+    <h3>d’images/vidéo</h3>
+
+    <!-- Table View -->
+    <div id="tableView">
+        <table>
+            <thead>
+                <tr>
+                    <th>Ressource</th>
+                    <th>alt</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>IMAGE assets/imgs/logoRALI.png "to RALI"</td><td>to RALI</td></tr>
+<tr><td>IMAGE assets/imgs/university-of-montreal-squarelogo.png</td><td></td></tr>
+<tr><td>IMAGE assets/imgs/sleepy-student.jpg "About us"</td><td>About us</td></tr>
+<tr><td>IMAGE assets/imgs/student.png "About us"</td><td>About us</td></tr>
+<tr><td>IMAGE assets/imgs/chilly-g.jpeg "Client Image"</td><td>Client Image</td></tr>
+<tr><td>IMAGE assets/imgs/jerome.jpeg "Client Image"</td><td>Client Image</td></tr>
+<tr><td>IMAGE assets/imgs/tigran.jpeg "Client Image"</td><td>Client Image</td></tr>
+<tr><td>IMAGE assets/imgs/felipe-2009.jpg "Philippe Langlais"</td><td>Philippe Langlais</td></tr>
+
+            </tbody>
+        </table>
+
+        <button onclick="showCarousel()">Carrousel</button>
+        <button onclick="showGallery()">Galerie</button>
+    </div>
+
+    <!-- Carrousel View -->
+    <div id="carousel" class="container carousel">
+        <img id="carouselImage" src="" alt="">
+        <br>
+        <button onclick="showTable()">Back</button>
+    </div>
+
+    <!-- Gallery View -->
+    <div id="gallery" class="container gallery">
+        <img src="http://www-labs.iro.umontreal.ca/~felipe/brand_new_home/creative-design/public_html/assets/imgs/logoRALI.png" alt="to RALI">
+<img src="http://www-labs.iro.umontreal.ca/~felipe/brand_new_home/creative-design/public_html/assets/imgs/university-of-montreal-squarelogo.png">
+<img src="http://www-labs.iro.umontreal.ca/~felipe/brand_new_home/creative-design/public_html/assets/imgs/sleepy-student.jpg" alt="About us">
+<img src="http://www-labs.iro.umontreal.ca/~felipe/brand_new_home/creative-design/public_html/assets/imgs/student.png" alt="About us">
+<img src="http://www-labs.iro.umontreal.ca/~felipe/brand_new_home/creative-design/public_html/assets/imgs/chilly-g.jpeg" alt="Client Image">
+<img src="http://www-labs.iro.umontreal.ca/~felipe/brand_new_home/creative-design/public_html/assets/imgs/jerome.jpeg" alt="Client Image">
+<img src="http://www-labs.iro.umontreal.ca/~felipe/brand_new_home/creative-design/public_html/assets/imgs/tigran.jpeg" alt="Client Image">
+<img src="http://www-labs.iro.umontreal.ca/~felipe/brand_new_home/creative-design/public_html/assets/imgs/felipe-2009.jpg" alt="Philippe Langlais">
+
+        <br>
+        <button onclick="showTable()">Back</button>
+    </div>
+
+    <script>
+        var images = ['IMAGE assets/imgs/logoRALI.png "to RALI"', 'IMAGE assets/imgs/university-of-montreal-squarelogo.png', 'IMAGE assets/imgs/sleepy-student.jpg "About us"', 'IMAGE assets/imgs/student.png "About us"', 'IMAGE assets/imgs/chilly-g.jpeg "Client Image"', 'IMAGE assets/imgs/jerome.jpeg "Client Image"', 'IMAGE assets/imgs/tigran.jpeg "Client Image"', 'IMAGE assets/imgs/felipe-2009.jpg "Philippe Langlais"'];
+        var index = 0;
+
+        function showTable() {
+            document.getElementById("tableView").style.display = "block";
+            document.getElementById("carousel").style.display = "none";
+            document.getElementById("gallery").style.display = "none";
+        }
+
+        function showCarousel() {
+            document.getElementById("tableView").style.display = "none";
+            document.getElementById("gallery").style.display = "none";
+            document.getElementById("carousel").style.display = "block";
+            startCarousel();
+        }
+
+        function showGallery() {
+            document.getElementById("tableView").style.display = "none";
+            document.getElementById("carousel").style.display = "none";
+            document.getElementById("gallery").style.display = "block";
+        }
+
+        function startCarousel() {
+            var img = document.getElementById("carouselImage");
+            img.src = images[index % images.length];
+            index++;
+            setTimeout(startCarousel, 2000);
+        }
+    </script>
+
+</body>
+</html>

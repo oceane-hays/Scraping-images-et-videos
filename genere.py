@@ -1,3 +1,4 @@
+import shlex
 import sys
 
 HTML_TEMPLATE = """<!DOCTYPE html>
@@ -114,10 +115,20 @@ def generate_html(resources):
     gallery_images = ""
     image_list = []
 
-    for resource in resources:
-        image_list.append(f'"{resource}"')  # Store images in JavaScript array
-        table_rows += f"<tr><td>{resource}</td><td>Client Image</td></tr>\n"
-        gallery_images += f'<img src="{resource}" alt="Client Image">\n'
+    path = resources[0].split(" ")[1]
+    print(path)
+
+    for i in range(1, len(resources)):
+        ligne = shlex.split(resources[i])
+        print(ligne)
+        image_list.append(f"'{resources[i]}'")  # Store images in JavaScript array
+
+        if len(ligne) >= 3:
+            table_rows += f"<tr><td>{resources[i]}</td><td>{ligne[2]}</td></tr>\n"
+            gallery_images += f'<img src="{path + ligne[1]}" alt="{ligne[2]}">\n'
+        else:
+            table_rows += f"<tr><td>{resources[i]}</td><td>{""}</td></tr>\n"
+            gallery_images += f'<img src="{path + ligne[1]}">\n'
 
     html_content = HTML_TEMPLATE.format(
         table_rows=table_rows, 
@@ -130,10 +141,12 @@ def generate_html(resources):
 
     print("Page HTML générée: mapage.html")
 
-if __name__ == "__main__":
-    resources = [line.strip() for line in sys.stdin if line.strip()]
-    if not resources:
-        print("Aucune ressource trouvée.", file=sys.stderr)
-        sys.exit(1)
+resources = sys.stdin.read().strip().split("\n")
 
-    generate_html(resources)
+print(resources)
+
+if not resources or resources == [""]:
+    print("Aucune ressource trouvée.", file=sys.stderr)
+    sys.exit(1)
+
+generate_html(resources)
