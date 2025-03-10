@@ -7,30 +7,32 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualisation des Ressources</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <h1>Visualisateur</h1>
-    
-    <div id="content">
-        <table id="resourceTable">
+    <h3>d’images/vidéo</h3>
+
+    <!-- Table View -->
+    <div id="tableView">
+        <table>
             <thead>
                 <tr>
                     <th>Ressource</th>
-                    <th>Alt</th>
+                    <th>alt</th>
                 </tr>
             </thead>
             <tbody>
                 {table_rows}
             </tbody>
         </table>
+
+        <button onclick="showCarousel()">Carrousel</button>
+        <button onclick="showGallery()">Galerie</button>
     </div>
 
-    <button id="showCarousel">Carrousel</button>
-    <button id="showGallery">Galerie</button>
-
-  <!-- Carrousel View -->
+    <!-- Carrousel View -->
     <div id="carousel" class="container carousel">
         <img id="carouselImage" src="{first_image}" alt="Carrousel Image" onclick="nextImage()">
         <div class="caption" id="imageCaption"></div>
@@ -46,50 +48,59 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <button onclick="showTable()">Back</button>
     </div>
 
-    <!-- Image Popup -->
+    <!-- Popup View -->
     <div id="imagePopup">
-        <img id="popupImage" src="" alt="Image Preview">
+        <img id="popupImg" src="">
     </div>
 
     <script src="script.js"></script>
-
 </body>
 </html>
 """
 
 def generate_html(resources):
     table_rows = ""
+    gallery_images = ""
+    image_list = []
+    caption_list = []
 
     if not resources or len(resources) < 2:
         print("Aucune ressource trouvée.", file=sys.stderr)
         sys.exit(1)
 
-    # Extract base path
     path = resources[0].split(" ")[1]
 
-    # Generate table rows with data attributes
     for i in range(1, len(resources)):
         ligne = shlex.split(resources[i])
 
         if len(ligne) >= 2:
             img_path = path + ligne[1]
+            image_list.append(f"'{img_path}'")
             alt_text = ligne[2] if len(ligne) >= 3 else "Client Image"
+            caption_text = f"Ressource {i} - {alt_text}"
+            caption_list.append(f"'{caption_text}'")
 
-            table_rows += f'<tr data-src="{img_path}"><td>{img_path}</td><td>{alt_text}</td></tr>\n'
+            # Show popup only while mouse is pressed
+            table_rows += f'<tr onmousedown="showPopup(\'{img_path}\')" onmouseup="hidePopup()"><td>{img_path}</td><td>{alt_text}</td></tr>\n'
 
-    # Generate HTML content
-    html_content = HTML_TEMPLATE.format(table_rows=table_rows)
+            gallery_images += f'<img src="{img_path}" alt="{alt_text}">\n'
 
-    # Write to file
+    html_content = HTML_TEMPLATE.format(
+        table_rows=table_rows, 
+        gallery_images=gallery_images, 
+        image_list=f"[{', '.join(image_list)}]",
+        caption_list=f"[{', '.join(caption_list)}]",
+        first_image=image_list[0] if image_list else ""
+    )
+
     with open("mapage.html", "w", encoding="utf-8") as f:
         f.write(html_content)
 
     print("Page HTML générée: mapage.html")
 
-# Read resources from stdin
 resources = sys.stdin.read().strip().split("\n")
 
-if not resources or resources == [""]:
+if not resources:
     print("Aucune ressource trouvée.", file=sys.stderr)
     sys.exit(1)
 
