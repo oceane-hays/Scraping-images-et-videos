@@ -1,4 +1,28 @@
-// Function to show the popup when the mouse is pressed down
+var images = [];
+var captions = [];
+var index = 0;
+
+document.addEventListener("DOMContentLoaded", function () {
+    images = JSON.parse(document.getElementById("imageData").textContent);
+    captions = JSON.parse(document.getElementById("captionData").textContent);
+
+    if (images.length > 0) {
+        document.getElementById("carouselImage").src = images[0];
+        document.getElementById("imageCaption").innerText = captions[0];
+        updateDots();
+    }
+
+    document.querySelectorAll("tr").forEach(row => {
+        row.addEventListener("mousedown", function () {
+            let imgSrc = row.cells[0].innerText; // Get image URL from the first column
+            showPopup(imgSrc);
+        });
+
+        row.addEventListener("mouseup", hidePopup);
+        row.addEventListener("mouseleave", hidePopup); // Hide if mouse leaves the row
+    });
+});
+
 function showPopup(imgSrc) {
     let popup = document.getElementById("imagePopup");
     let popupImg = document.getElementById("popupImg");
@@ -7,16 +31,10 @@ function showPopup(imgSrc) {
     popup.style.display = "block";
 }
 
-// Function to hide the popup when the mouse is released
 function hidePopup() {
     let popup = document.getElementById("imagePopup");
     popup.style.display = "none";
 }
-
-// Carousel & Gallery functionality
-var images = {image_list};
-var captions = {caption_list};
-var index = 0;
 
 function showTable() {
     document.getElementById("tableView").style.display = "block";
@@ -46,10 +64,13 @@ function nextImage() {
 function updateCarousel() {
     document.getElementById("carouselImage").src = images[index];
     document.getElementById("imageCaption").innerText = captions[index];
+    updateDots();
+}
 
-    // Update dots
+function updateDots() {
     var dotsContainer = document.getElementById("dotsContainer");
     dotsContainer.innerHTML = "";
+
     for (var i = 0; i < images.length; i++) {
         var dot = document.createElement("span");
         dot.classList.add("dot");

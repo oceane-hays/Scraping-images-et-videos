@@ -19,7 +19,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <table>
             <thead>
                 <tr>
-                    <th>Ressource</th>
+                    <th>ressource</th>
                     <th>alt</th>
                 </tr>
             </thead>
@@ -34,8 +34,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
     <!-- Carrousel View -->
     <div id="carousel" class="container carousel">
-        <img id="carouselImage" src="{first_image}" alt="Carrousel Image" onclick="nextImage()">
         <div class="caption" id="imageCaption"></div>
+        <img id="carouselImage" src="{first_image}" alt="Carrousel Image" onclick="nextImage()">
         <div class="dots" id="dotsContainer"></div>
         <br>
         <button onclick="showTable()">Back</button>
@@ -53,6 +53,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <img id="popupImg" src="">
     </div>
 
+    <script id="imageData" type="application/json">{image_list}</script>
+    <script id="captionData" type="application/json">{caption_list}</script>
     <script src="script.js"></script>
 </body>
 </html>
@@ -75,22 +77,21 @@ def generate_html(resources):
 
         if len(ligne) >= 2:
             img_path = path + ligne[1]
-            image_list.append(f"'{img_path}'")
+            image_list.append(f'"{img_path}"')
             alt_text = ligne[2] if len(ligne) >= 3 else "Client Image"
-            caption_text = f"Ressource {i} - {alt_text}"
-            caption_list.append(f"'{caption_text}'")
+            caption_list.append(f'"{alt_text}"')
 
-            # Show popup only while mouse is pressed
-            table_rows += f'<tr onmousedown="showPopup(\'{img_path}\')" onmouseup="hidePopup()"><td>{img_path}</td><td>{alt_text}</td></tr>\n'
-
+            table_rows += f'<tr><td>{img_path}</td><td>{alt_text}</td></tr>\n'
             gallery_images += f'<img src="{img_path}" alt="{alt_text}">\n'
 
+    first_image = image_list[0] if image_list else ""
+
     html_content = HTML_TEMPLATE.format(
-        table_rows=table_rows, 
-        gallery_images=gallery_images, 
+        table_rows=table_rows,
+        gallery_images=gallery_images,
         image_list=f"[{', '.join(image_list)}]",
         caption_list=f"[{', '.join(caption_list)}]",
-        first_image=image_list[0] if image_list else ""
+        first_image=first_image
     )
 
     with open("mapage.html", "w", encoding="utf-8") as f:
@@ -99,9 +100,5 @@ def generate_html(resources):
     print("Page HTML générée: mapage.html")
 
 resources = sys.stdin.read().strip().split("\n")
-
-if not resources:
-    print("Aucune ressource trouvée.", file=sys.stderr)
-    sys.exit(1)
 
 generate_html(resources)
