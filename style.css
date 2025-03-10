@@ -68,3 +68,25 @@ button {
     border-radius: 5px;
     margin: 10px;
 }    
+
+/* Image Styling */
+img {
+    width: 200px;  
+    height: 200px; 
+    object-fit: cover;  
+}
+
+table img {
+    width: 100px;
+    height: 100px;
+}
+
+.carousel img {
+    width: 400px;  
+    height: 400px;
+}
+
+.gallery img {
+    width: 150px;  
+    height: 150px;
+}
