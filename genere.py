@@ -77,11 +77,12 @@ def generate_html(resources):
 
         if len(ligne) >= 2:
             img_path = path + ligne[1]
+
             image_list.append(f'"{img_path}"')
             alt_text = ligne[2] if len(ligne) >= 3 else "Client Image"
             caption_list.append(f'"{alt_text}"')
 
-            table_rows += f'<tr><td>{img_path}</td><td>{alt_text}</td></tr>\n'
+            table_rows += f'<tr><td>{ligne[1]}</td><td>{alt_text}</td></tr>\n'
             gallery_images += f'<img src="{img_path}" alt="{alt_text}">\n'
 
     first_image = image_list[0] if image_list else ""

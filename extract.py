@@ -1,10 +1,12 @@
 import os
 import shutil
 import sys
+from urllib.parse import urljoin
+
 import requests
 import re
 
-
+# HELP
 aide_arg = {
     "-r <regex>" : "    (@oceane-hays, @CelinaZhang11) liste seulement les ressources dont le nom  matche l’expression régulière.",
     "-i" : "    (@oceane-hays, @CelinaZhang11) ne liste pas les elements <img>.",
@@ -13,146 +15,78 @@ aide_arg = {
     "-h" : "    (@oceane-hays, @CelinaZhang11) affiche le synopsis de la commande et les auteurs de la commande",
 }
 
-
 args = sys.argv[1:]
 
 if len(args) < 1:
     print("Usage: extract.py (synopsis) <url>")
     sys.exit(1)
 
-url = args[-1]
+url = args[-1].rstrip("/")
 
 response = requests.get(url)
+html = response.text
 
+img_pattern = re.findall(r'<img[^>]+src=["\'](.*?)["\'].*?>', html, re.IGNORECASE)
+video_pattern = re.findall(r'<video[^>]+src=["\'](.*?)["\'].*?>', html, re.IGNORECASE)
+source_pattern = re.findall(r'<source[^>]+src=["\'](.*?)["\'].*?>', html, re.IGNORECASE)
 
-while True :
-    if url[-1] == "/" :
-        break
-    url = url[:-1]
+def normalize_url(src, base_url):
+    if src.startswith("//"):
+        return "https:" + src
+    return urljoin(base_url, src)
+
+resultat = [f"IMAGE {normalize_url(src, url)}" for src in img_pattern] + \
+           [f"VIDEO {normalize_url(src, url)}" for src in video_pattern + source_pattern]
 
 
 path = "PATH "
 
-doc = ''.join(response.text.split('    '))
-doc = doc.replace("\t", "")
-doc = doc.replace(">", " ")
-doc = ''.join(doc.split('\n'))
-doc = doc.split('<')
-
-def estVideo(x) :
-    return "video" in x or "source" in x
-
-def filtrer(doc):
-    return list(filter(lambda x: "img" in x or estVideo(x), doc))
-
-
-doc = filtrer(doc)
-
-image = "IMAGE "
-video = "VIDEO "
-
-resultat = []
-
-for i in range(len(doc)) :
-
-    ligne = re.findall(r'[^"\s]+="[^"]*"|[^"\s]+', doc[i])
-
-    if ligne[0] == "img" :
-        for j in range(len(ligne)) :
-            if "src" in ligne[j] :
-                image += ligne[j][5:-1]
-
-            if "alt" in ligne[j] :
-                image += " " + ligne[j][4:]
-        resultat.append(image)
-        image = "IMAGE "
-
-    if ligne[0] == "video":
-        for j in range(len(ligne)):
-            if "src" in ligne[j]:
-                video += ligne[j][5:-1]
-                resultat.append(video)
-                video = "VIDEO "
-
-    if ligne[0] == "source":
-        for j in range(len(ligne)):
-            if "src" in ligne[j]:
-                video += ligne[j][5:-1]
-                resultat.append(video)
-                video = "VIDEO "
-
-
-
 def define_options(args, res):
-    global path
     global url
+
+    filtered_res = res
 
     i = 0
     while i < len(args):
         match args[i]:
             case "-r":
-
                 if i + 1 < len(args) and args[i + 1] != url:
                     regex = args[i + 1]
-
-                    res = filter(lambda x: regex in x, res)
+                    filtered_res = [line for line in filtered_res if re.search(regex, line)]
                     i += 1
-                else:
-                    res = ["Erreur : -r requiert une valeur"]
 
             case "-i":
-                res = filter(lambda x: x[0] != "I", res)
+                filtered_res = [line for line in filtered_res if not line.startswith("IMAGE")]
 
             case "-v":
-                res = filter(lambda x: x[0] != "V", res)
+                filtered_res = [line for line in filtered_res if not line.startswith("VIDEO")]
 
             case "-p":
-                if i + 1 < len(args) and args[i + 1] != url and args[i + 1] not in "-r-i-v-p-h":
-                    path += args[i + 1]
-                    print(path)
+                if i + 1 < len(args) and args[i + 1] != url and not args[i + 1].startswith("-"):
+                    path = args[i + 1]
+                    os.makedirs(path, exist_ok=True)
 
-                    temp = []
-                    for line in res :
-                        ligne = line.split()
+                    output_file = os.path.join(path, "extracted_resources.txt")
+                    with open(output_file, "w") as file:
+                        file.write("\n".join(filtered_res))
 
-                        ligne[1] = ligne[1].split("/")[-1]
-                        temp.append(" ".join(ligne))
-
-                    res = temp
-
-                    source_file = "example.txt"
-                    destination_folder = args[i + 1]
-                    destination_file = os.path.join(destination_folder, "example_copy.txt")
-
-                    os.makedirs(destination_folder, exist_ok=True)
-
-                    with open(source_file, "w") as file:
-                        file.write(path + "\n")
-                        file.write("\n".join(res))
-
-                    shutil.copy(source_file, destination_file)
-
-
+                    print(f"PATH {output_file}")
                     i += 1
 
-
             case "-h":
-                print("----- HELP : Extracteur de video et d'images -----")
-                for arg in range(len(args) - 1) :
-                    print(args[arg], aide_arg[args[arg]])
+                print("----- HELP : Extracteur de vidéo et d'images -----")
+                for option, desc in aide_arg.items():
+                    print(f"{option} : {desc}")
 
         i += 1
 
-
-    if path == "PATH " :
-        print(path + url)
-    return "\n".join(res)
+    return "\n".join(filtered_res)
 
 
+if "-p" not in args:
+    print("PATH " + url)
 
-if len(args) > 1 :
+if len(args) > 1:
     print(define_options(args, resultat))
-
-else :
-    print(path + url)
+else:
     print("\n".join(resultat))

@@ -1,0 +1,7 @@
+IMAGE assets/imgs/logoRALI.png
+IMAGE assets/imgs/university-of-montreal-squarelogo.png
+IMAGE assets/imgs/sleepy-student.jpg
+IMAGE assets/imgs/student.png
+IMAGE assets/imgs/chilly-g.jpeg
+IMAGE assets/imgs/jerome.jpeg
+IMAGE assets/imgs/tigran.jpeg

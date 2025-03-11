@@ -1,9 +1,14 @@
-PATH http://www-labs.iro.umontreal.ca/~felipe/brand_new_home/creative-design/public_html/
-IMAGE assets/imgs/logoRALI.png "to RALI"
-IMAGE assets/imgs/university-of-montreal-squarelogo.png
-IMAGE assets/imgs/sleepy-student.jpg "About us"
-IMAGE assets/imgs/student.png "About us"
-IMAGE assets/imgs/chilly-g.jpeg "Client Image"
-IMAGE assets/imgs/jerome.jpeg "Client Image"
-IMAGE assets/imgs/tigran.jpeg "Client Image"
-IMAGE assets/imgs/felipe-2009.jpg "Philippe Langlais"
+PATH https://www.julietteetchocolat.com/en?srsltid=AfmBOor_JpTqQ-PH6zl69B2PpGiCa9rmwksZqDv5no76E_eF9XhZg4Cj
+IMAGE https://www.julietteetchocolat.com/cdn/shop/t/34/assets/logo.svg?v=81080229966865559781703701943
+IMAGE https://cdn.shopify.com/s/files/1/1515/1748/files/our-menu.svg
+IMAGE https://www.julietteetchocolat.com/cdn/shop/files/jc-perles-chocolats-lait_1800x.jpg?v=1613791846
+IMAGE https://cdn.shopify.com/s/files/1/1515/1748/files/online-store-v4.svg
+IMAGE https://cdn.shopify.com/s/files/1/1515/1748/files/artisanal-collections.svg
+IMAGE https://www.julietteetchocolat.com/cdn/shop/files/brownies_nouveau_menu_400x.jpg?v=1622218395
+IMAGE https://www.julietteetchocolat.com/cdn/shop/files/Juliette_et_choco_Sceau_Renverse_Creve_PMS_x120@2x.png?v=1613750440
+IMAGE https://cdn.shopify.com/s/files/1/1515/1748/files/amex-logo.svg
+IMAGE https://cdn.shopify.com/s/files/1/1515/1748/files/apple-pay-logo.svg
+IMAGE https://cdn.shopify.com/s/files/1/1515/1748/files/google-pay-logo.svg
+IMAGE https://cdn.shopify.com/s/files/1/1515/1748/files/paypal-logo.svg
+IMAGE https://cdn.shopify.com/s/files/1/1515/1748/files/mastercard-logo.svg
+IMAGE https://cdn.shopify.com/s/files/1/1515/1748/files/visa-logo.svg
