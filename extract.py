@@ -2,7 +2,6 @@ import os
 import shutil
 import sys
 from urllib.parse import urljoin
-
 import requests
 import re
 
@@ -86,7 +85,18 @@ def define_options(args, res):
 if "-p" not in args:
     print("PATH " + url)
 
+
 if len(args) > 1:
     print(define_options(args, resultat))
+
+    res = define_options(args, resultat)
+    with open("fichier.txt", "w", encoding="utf-8") as file:
+        file.write("PATH " + url)
+        file.write("\n".join(res))
 else:
     print("\n".join(resultat))
+
+    with open("fichier.txt", "w", encoding="utf-8") as file:
+        file.write("PATH " + url)
+        file.write("\n".join(resultat))
+

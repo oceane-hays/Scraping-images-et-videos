@@ -1,5 +1,4 @@
-PATH https://www.julietteetchocolat.com/en?srsltid=AfmBOor_JpTqQ-PH6zl69B2PpGiCa9rmwksZqDv5no76E_eF9XhZg4Cj
-IMAGE https://www.julietteetchocolat.com/cdn/shop/t/34/assets/logo.svg?v=81080229966865559781703701943
+PATH https://www.julietteetchocolat.com/en?srsltid=AfmBOor_JpTqQ-PH6zl69B2PpGiCa9rmwksZqDv5no76E_eF9XhZg4CjIMAGE https://www.julietteetchocolat.com/cdn/shop/t/34/assets/logo.svg?v=81080229966865559781703701943
 IMAGE https://cdn.shopify.com/s/files/1/1515/1748/files/our-menu.svg
 IMAGE https://www.julietteetchocolat.com/cdn/shop/files/jc-perles-chocolats-lait_1800x.jpg?v=1613791846
 IMAGE https://cdn.shopify.com/s/files/1/1515/1748/files/online-store-v4.svg
