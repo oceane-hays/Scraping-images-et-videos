@@ -1,3 +1,5 @@
+import os
+import shutil
 import sys
 import requests
 import re
@@ -105,7 +107,7 @@ def define_options(args, res):
                 res = filter(lambda x: x[0] != "V", res)
 
             case "-p":
-                if i + 1 < len(args) and args[i + 1] != url:
+                if i + 1 < len(args) and args[i + 1] != url and args[i + 1] not in "-r-i-v-p-h":
                     path += args[i + 1]
                     print(path)
 
@@ -117,10 +119,22 @@ def define_options(args, res):
                         temp.append(" ".join(ligne))
 
                     res = temp
+
+                    source_file = "example.txt"
+                    destination_folder = args[i + 1]
+                    destination_file = os.path.join(destination_folder, "example_copy.txt")
+
+                    os.makedirs(destination_folder, exist_ok=True)
+
+                    with open(source_file, "w") as file:
+                        file.write(path + "\n")
+                        file.write("\n".join(res))
+
+                    shutil.copy(source_file, destination_file)
+
+
                     i += 1
 
-                else:
-                    res = ["Erreur : -p requiert une valeur"]
 
             case "-h":
                 print("----- HELP : Extracteur de video et d'images -----")
