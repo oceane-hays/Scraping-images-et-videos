@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisation des Ressources</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Visualisateur</h1>
+    <h3>d’images/vidéo</h3>
+
+    <!-- Table View -->
+    <div id="tableView">
+        <table>
+            <thead>
+                <tr>
+                    <th>Ressource</th>
+                    <th>Alt</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onmousedown="showPopup('https://www.julietteetchocolat.com/cdn/shop/t/34/assets/logo.svg?v=81080229966865559781703701943')" onmouseup="hidePopup()"><td>https://www.julietteetchocolat.com/cdn/shop/t/34/assets/logo.svg?v=81080229966865559781703701943</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://cdn.shopify.com/s/files/1/1515/1748/files/our-menu.svg')" onmouseup="hidePopup()"><td>https://cdn.shopify.com/s/files/1/1515/1748/files/our-menu.svg</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://www.julietteetchocolat.com/cdn/shop/files/jc-perles-chocolats-lait_1800x.jpg?v=1613791846')" onmouseup="hidePopup()"><td>https://www.julietteetchocolat.com/cdn/shop/files/jc-perles-chocolats-lait_1800x.jpg?v=1613791846</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://cdn.shopify.com/s/files/1/1515/1748/files/online-store-v4.svg')" onmouseup="hidePopup()"><td>https://cdn.shopify.com/s/files/1/1515/1748/files/online-store-v4.svg</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://cdn.shopify.com/s/files/1/1515/1748/files/artisanal-collections.svg')" onmouseup="hidePopup()"><td>https://cdn.shopify.com/s/files/1/1515/1748/files/artisanal-collections.svg</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://www.julietteetchocolat.com/cdn/shop/files/brownies_nouveau_menu_400x.jpg?v=1622218395')" onmouseup="hidePopup()"><td>https://www.julietteetchocolat.com/cdn/shop/files/brownies_nouveau_menu_400x.jpg?v=1622218395</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://www.julietteetchocolat.com/cdn/shop/files/Juliette_et_choco_Sceau_Renverse_Creve_PMS_x120@2x.png?v=1613750440')" onmouseup="hidePopup()"><td>https://www.julietteetchocolat.com/cdn/shop/files/Juliette_et_choco_Sceau_Renverse_Creve_PMS_x120@2x.png?v=1613750440</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://cdn.shopify.com/s/files/1/1515/1748/files/amex-logo.svg')" onmouseup="hidePopup()"><td>https://cdn.shopify.com/s/files/1/1515/1748/files/amex-logo.svg</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://cdn.shopify.com/s/files/1/1515/1748/files/apple-pay-logo.svg')" onmouseup="hidePopup()"><td>https://cdn.shopify.com/s/files/1/1515/1748/files/apple-pay-logo.svg</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://cdn.shopify.com/s/files/1/1515/1748/files/google-pay-logo.svg')" onmouseup="hidePopup()"><td>https://cdn.shopify.com/s/files/1/1515/1748/files/google-pay-logo.svg</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://cdn.shopify.com/s/files/1/1515/1748/files/paypal-logo.svg')" onmouseup="hidePopup()"><td>https://cdn.shopify.com/s/files/1/1515/1748/files/paypal-logo.svg</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://cdn.shopify.com/s/files/1/1515/1748/files/mastercard-logo.svg')" onmouseup="hidePopup()"><td>https://cdn.shopify.com/s/files/1/1515/1748/files/mastercard-logo.svg</td><td>Client Image</td></tr>
+<tr onmousedown="showPopup('https://cdn.shopify.com/s/files/1/1515/1748/files/visa-logo.svg')" onmouseup="hidePopup()"><td>https://cdn.shopify.com/s/files/1/1515/1748/files/visa-logo.svg</td><td>Client Image</td></tr>
+
+            </tbody>
+        </table>
+
+        <button onclick="showCarousel()">Carrousel</button>
+        <button onclick="showGallery()">Galerie</button>
+    </div>
+
+    <!-- Carousel View -->
+    <div id="carousel" class="container carousel">
+        <div class="caption" id="imageCaption"></div>
+        <img id="carouselImage" src=""https://www.julietteetchocolat.com/cdn/shop/t/34/assets/logo.svg?v=81080229966865559781703701943"" alt="Carrousel Image" onclick="nextImage()">
+        <div class="dots" id="dotsContainer"></div>
+        <br>
+        <button onclick="showTable()">Back</button>
+    </div>
+
+    <!-- Gallery View -->
+    <div id="gallery" class="container gallery">
+        <img src="https://www.julietteetchocolat.com/cdn/shop/t/34/assets/logo.svg?v=81080229966865559781703701943" alt="Client Image">
+<img src="https://cdn.shopify.com/s/files/1/1515/1748/files/our-menu.svg" alt="Client Image">
+<img src="https://www.julietteetchocolat.com/cdn/shop/files/jc-perles-chocolats-lait_1800x.jpg?v=1613791846" alt="Client Image">
+<img src="https://cdn.shopify.com/s/files/1/1515/1748/files/online-store-v4.svg" alt="Client Image">
+<img src="https://cdn.shopify.com/s/files/1/1515/1748/files/artisanal-collections.svg" alt="Client Image">
+<img src="https://www.julietteetchocolat.com/cdn/shop/files/brownies_nouveau_menu_400x.jpg?v=1622218395" alt="Client Image">
+<img src="https://www.julietteetchocolat.com/cdn/shop/files/Juliette_et_choco_Sceau_Renverse_Creve_PMS_x120@2x.png?v=1613750440" alt="Client Image">
+<img src="https://cdn.shopify.com/s/files/1/1515/1748/files/amex-logo.svg" alt="Client Image">
+<img src="https://cdn.shopify.com/s/files/1/1515/1748/files/apple-pay-logo.svg" alt="Client Image">
+<img src="https://cdn.shopify.com/s/files/1/1515/1748/files/google-pay-logo.svg" alt="Client Image">
+<img src="https://cdn.shopify.com/s/files/1/1515/1748/files/paypal-logo.svg" alt="Client Image">
+<img src="https://cdn.shopify.com/s/files/1/1515/1748/files/mastercard-logo.svg" alt="Client Image">
+<img src="https://cdn.shopify.com/s/files/1/1515/1748/files/visa-logo.svg" alt="Client Image">
+
+        <br>
+        <button onclick="showTable()">Back</button>
+    </div>
+
+    <!-- Popup View -->
+    <div id="imagePopup">
+        <img id="popupImg" src="">
+    </div>
+
+    <!-- Hidden JSON Data for JavaScript -->
+    <script id="imageData" type="application/json">["https://www.julietteetchocolat.com/cdn/shop/t/34/assets/logo.svg?v=81080229966865559781703701943", "https://cdn.shopify.com/s/files/1/1515/1748/files/our-menu.svg", "https://www.julietteetchocolat.com/cdn/shop/files/jc-perles-chocolats-lait_1800x.jpg?v=1613791846", "https://cdn.shopify.com/s/files/1/1515/1748/files/online-store-v4.svg", "https://cdn.shopify.com/s/files/1/1515/1748/files/artisanal-collections.svg", "https://www.julietteetchocolat.com/cdn/shop/files/brownies_nouveau_menu_400x.jpg?v=1622218395", "https://www.julietteetchocolat.com/cdn/shop/files/Juliette_et_choco_Sceau_Renverse_Creve_PMS_x120@2x.png?v=1613750440", "https://cdn.shopify.com/s/files/1/1515/1748/files/amex-logo.svg", "https://cdn.shopify.com/s/files/1/1515/1748/files/apple-pay-logo.svg", "https://cdn.shopify.com/s/files/1/1515/1748/files/google-pay-logo.svg", "https://cdn.shopify.com/s/files/1/1515/1748/files/paypal-logo.svg", "https://cdn.shopify.com/s/files/1/1515/1748/files/mastercard-logo.svg", "https://cdn.shopify.com/s/files/1/1515/1748/files/visa-logo.svg"]</script>
+    <script id="captionData" type="application/json">["Client Image", "Client Image", "Client Image", "Client Image", "Client Image", "Client Image", "Client Image", "Client Image", "Client Image", "Client Image", "Client Image", "Client Image", "Client Image"]</script>
+    <script src="script.js"></script>
+</body>
+</html>
