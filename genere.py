@@ -19,8 +19,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <table>
             <thead>
                 <tr>
-                    <th>ressource</th>
-                    <th>alt</th>
+                    <th>Ressource</th>
+                    <th>Alt</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +32,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <button onclick="showGallery()">Galerie</button>
     </div>
 
-    <!-- Carrousel View -->
+    <!-- Carousel View -->
     <div id="carousel" class="container carousel">
         <div class="caption" id="imageCaption"></div>
         <img id="carouselImage" src="{first_image}" alt="Carrousel Image" onclick="nextImage()">
@@ -53,6 +53,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <img id="popupImg" src="">
     </div>
 
+    <!-- Hidden JSON Data for JavaScript -->
     <script id="imageData" type="application/json">{image_list}</script>
     <script id="captionData" type="application/json">{caption_list}</script>
     <script src="script.js"></script>
@@ -70,19 +71,25 @@ def generate_html(resources):
         print("Aucune ressource trouvée.", file=sys.stderr)
         sys.exit(1)
 
-    path = resources[0].split(" ")[1]
+    # Extract base path
+    path = ""
+    if resources[0].startswith("PATH"):
+        path = resources[0].split(" ", 1)[1] 
 
     for i in range(1, len(resources)):
-        ligne = shlex.split(resources[i])
+        ligne = shlex.split(resources[i])  
 
-        if len(ligne) >= 2:
-            img_path = path + ligne[1]
+        if len(ligne) >= 2 and ligne[0] == "IMAGE":
+            img_path = ligne[1]  
 
+            # Store in lists for script.js
             image_list.append(f'"{img_path}"')
             alt_text = ligne[2] if len(ligne) >= 3 else "Client Image"
             caption_list.append(f'"{alt_text}"')
 
-            table_rows += f'<tr><td>{ligne[1]}</td><td>{alt_text}</td></tr>\n'
+            table_rows += f'<tr onmousedown="showPopup(\'{img_path}\')" onmouseup="hidePopup()">'
+            table_rows += f'<td>{img_path}</td><td>{alt_text}</td></tr>\n'  
+
             gallery_images += f'<img src="{img_path}" alt="{alt_text}">\n'
 
     first_image = image_list[0] if image_list else ""
